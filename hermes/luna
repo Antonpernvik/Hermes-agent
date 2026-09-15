@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export HERMES_HOME="${HERMES_HOME:-$HOME/Code/luna/hermes}"
+# Isolate Luna from cloud provider keys that may exist in the parent shell.
+unset OPENROUTER_API_KEY OPENAI_API_KEY ANTHROPIC_API_KEY GEMINI_API_KEY GOOGLE_API_KEY
+unset TAVILY_API_KEY FIREWORKS_API_KEY NOVITA_API_KEY GLM_API_KEY KIMI_API_KEY
+unset OLLAMA_API_KEY AI_GATEWAY_API_KEY DEEPSEEK_API_KEY XAI_API_KEY
+unset PYTHONPATH PYTHONHOME
+cd "${LUNA_VAULT:-$HOME/Code/luna/vault}"
+exec "$HOME/.local/bin/hermes" "$@"
