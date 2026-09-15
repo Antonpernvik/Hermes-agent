@@ -1,23 +1,21 @@
-# Luna — local Hermes Agent (Ollama qwen3:8b, no cloud keys)
 model:
-  default: "qwen3:8b"
-  provider: "custom"
-  base_url: "http://localhost:11434/v1"
-  api_key: "ollama"
+  default: qwen3:8b
+  provider: custom
+  base_url: http://localhost:11434/v1
+  api_key: ollama
   context_length: 65536
   ollama_num_ctx: 65536
-
 terminal:
   backend: local
-  cwd: "/Users/antonpernvik/Code/luna/vault"
+  cwd: /Users/antonpernvik/Code/luna/vault
   timeout: 120
-
 platform_toolsets:
-  cli: [file, terminal]
-
+  cli:
+    - file
+    - terminal
 agent:
   max_turns: 20
-  reasoning_effort: "none"
+  reasoning_effort: none
   disabled_toolsets:
     - web
     - browser
@@ -37,18 +35,17 @@ agent:
     - todo
     - memory
     - session_search
-
 memory:
   memory_enabled: false
   user_profile_enabled: false
   nudge_interval: 0
-
 approvals:
   single_query_mode: approve
-
 display:
   personality: none
-
 tools:
   tool_search:
-    enabled: off
+    enabled: false
+onboarding:
+  seen:
+    openclaw_residue_cleanup: true
