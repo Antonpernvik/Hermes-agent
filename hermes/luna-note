@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Deterministisk anteckningshjälp för Luna: lägger till EN rad i vaulten utan
+# att någonsin skriva över befintligt innehåll. Datumet kommer alltid från
+# systemklockan (Europe/Stockholm), aldrig från modellen.
+#
+# Användning:
+#   luna-note daily "Ringa [[Nathalie]]"
+#   luna-note people tobias "Ska skriva på aktieägaravtalet nästa vecka"
+#   luna-note projects aktieagaravtal "Signering nästa vecka"
+set -euo pipefail
+
+VAULT="${LUNA_VAULT:-$HOME/Code/luna/vault}"
+TODAY="$(TZ=Europe/Stockholm date +%Y-%m-%d)"
+
+kind="${1:-}"
+case "$kind" in
+  daily)
+    text="${2:-}"
+    [[ -n "$text" ]] || { echo "FEL: tom anteckning" >&2; exit 2; }
+    file="$VAULT/daily/$TODAY.md"
+    header="# $TODAY"
+    line="- $text"
+    ;;
+  people|projects)
+    name="${2:-}"
+    text="${3:-}"
+    [[ -n "$name" && -n "$text" ]] || { echo "FEL: ange namn och text" >&2; exit 2; }
+    slug="$(printf '%s' "$name" | tr '[:upper:] ' '[:lower:]-')"
+    file="$VAULT/$kind/$slug.md"
+    header="# $name"
+    line="- $TODAY: $text"
+    ;;
+  *)
+    echo "Användning: luna-note daily \"text\" | luna-note people <namn> \"text\" | luna-note projects <namn> \"text\"" >&2
+    exit 2
+    ;;
+esac
+
+mkdir -p "$(dirname "$file")"
+[[ -f "$file" ]] || printf '%s\n' "$header" > "$file"
+printf '%s\n' "$line" >> "$file"
+echo "SPARAT: $file"

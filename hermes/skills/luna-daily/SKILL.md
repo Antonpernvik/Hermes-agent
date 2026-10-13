@@ -1,20 +1,25 @@
 ---
 name: luna-daily
 description: Append a line to today's vault daily note.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Dagens anteckning
 
 Vault: `/Users/antonpernvik/Code/luna/vault`
-Fil: `/Users/antonpernvik/Code/luna/vault/daily/YYYY-MM-DD.md` (dagens datum)
+Dagens datum står i systemprompten som "Dagens datum är YYYY-MM-DD (veckodag)". Räkna aldrig ut datumet själv.
 
-När användaren säger anteckna/kom ihåg/spara:
-1. `read_file` på dagens fil. Om den saknas, hoppa till skriv.
-2. `write_file` med befintligt innehåll plus en ny rad, eller skapa filen:
-   ```
-   # YYYY-MM-DD
+När användaren säger anteckna/kom ihåg/spara, kör i terminalen:
 
-   - <anteckningen>
-   ```
-3. Svara kort på svenska först efter lyckad skrivning.
+```
+/Users/antonpernvik/Code/luna/hermes/luna-note daily "<texten>"
+```
+
+Skriptet skapar/uppdaterar `daily/<dagens datum>.md` och lägger till raden utan att skriva över något. Nämns en person eller ett projekt, kör även:
+
+```
+/Users/antonpernvik/Code/luna/hermes/luna-note people <namn> "<vad som sas>"
+/Users/antonpernvik/Code/luna/hermes/luna-note projects <namn> "<vad som sas>"
+```
+
+Svara kort på svenska först när kommandot svarat `SPARAT:`. Använd aldrig `write_file`/`patch` för anteckningar.
