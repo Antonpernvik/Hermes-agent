@@ -3,6 +3,9 @@ model:
   provider: custom
   base_url: http://localhost:11434/v1
   api_key: ollama
+  # Hermes kräver minst 64K context_length och vägrar verktygsanrop om
+  # ollama_num_ctx < 64K (agent/agent_init.py + turn_preflight_gate.py),
+  # så 32768 är inte körbart. Båda hålls i synk med hermes/Modelfile på 65536.
   context_length: 65536
   ollama_num_ctx: 65536
 terminal:

@@ -1,3 +1,6 @@
+# Skrivs om av wrappern `luna` vid varje start (dagens datum)
+AGENTS.override.md
+
 vault/.obsidian/workspace.json
 vault/.obsidian/workspace-mobile.json
 vault/.obsidian/cache
@@ -21,6 +24,8 @@ hermes/cache/
 hermes/runtime/
 hermes/sandboxes/
 hermes/backups/
+hermes/processes.json
+hermes/terminal-sessions/
 hermes/.no-bundled-skills
 hermes/.env
 hermes/.update_check
